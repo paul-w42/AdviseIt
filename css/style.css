@@ -61,6 +61,10 @@ div#prereqs {
     padding: 0.5em 0;
 }
 
+div#prereqs label {
+    padding-left: 0;
+}
+
 
 
 @media screen and (max-width: 768px) {
