@@ -18,11 +18,41 @@
         <p>Once your plan has been generated, please review and confirm your plan with 
         your advisor!</p>
 
-        <hr>
+        <!-- <hr> -->
 
         <form action="">
 
-            
+            <h4 id="form">Please select and/or choose from the following:</h4>
+
+            <div id="summer">
+                <input type="checkbox" name="summer" id="summer">
+                <label for="summer">Do you wish to take Summer classes if available?</label>
+            </div>
+
+            <div id="radios">
+                <p>Please select the most number of classes you wish to take in a quarter:</p>
+                <div>
+                    <div>                    
+                        <input type="radio" id="number1" name="number" value="1" checked>
+                        <label for="one">1 class per quarter</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="number2" name="number" value="2">
+                        <label for="two">2 classes per quarter</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="number3" name="number" value="3">
+                        <label for="three">3 classes per quarter</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="prereqs">
+                <p>Please select the pre-requisite classes (or equavalents) that you have 
+                    already taken.</p>
+                
+
+            </div>
 
 
         </form>

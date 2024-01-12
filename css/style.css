@@ -28,14 +28,40 @@ form {
     padding-top: 12px;
 }
 
+h4#form {
+    margin-left: -12px;
+    /* text-decoration: underline; */
+    border-bottom: 2px solid #69B143;
+}
+
+form p {
+    font-size: 0.9em;
+}
+
 label, input, button {
-    display: block;
+    display: inline;
     margin-bottom: 4px;
 }
 
 label {
+    padding-left: 0.5em;
     font-size: 16px;
 }
+
+div#summer {
+
+}
+
+div#radios {
+    padding: 0.5em 0;
+}
+
+
+div#prereqs {
+    padding: 0.5em 0;
+}
+
+
 
 @media screen and (max-width: 768px) {
     body {
@@ -55,6 +81,10 @@ label {
 
     div.content p {
         padding: 0.35em;
+    }
+
+    div.content hr {
+        margin: 0 0.35em;
     }
 }
 
