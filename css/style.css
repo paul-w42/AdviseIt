@@ -26,7 +26,6 @@ div.content h1 {
 }
 
 form {
-    background-color: rgba(245, 245, 245);
     border-radius: 0.5rem;
     margin: 12px;
     padding-top: 12px;
@@ -50,36 +49,24 @@ label {
     font-size: 16px;
 }
 
-div#summer {
+div#summer, div#radios, div#prereqs {
     margin: 20px;
     padding: 0.5em;
     border: 2px solid #69B143;
+    border-radius: 5px;
+    background-color: rgba(245, 245, 245);
 }
 
 div.form {
     padding: 0.5em 0;
 }
 
-div#radios {
-    margin: 20px;
-    padding: 0.5em;
-    border: 2px solid #69B143;
-}
-
-
-div#prereqs {
-    margin: 20px;
-    padding: 0.5em;
-    border: 2px solid #69B143;
-}
-
-
 div#prereqs label {
     padding-left: 0;
 }
 
 input#submit {
-    margin: 5px 20px 20px 20px;
+    margin: -10px 20px 20px 20px;
     padding: 0.5em;
     font-size: 1em;
 }

@@ -128,7 +128,21 @@ function buildConfirmationContent() {
     ...
      document.getElementById(`d${id}6`).appendChild(url_anchor);
 */
+    const confirmDiv = document.querySelector('#confirm');
+    let summer = document.querySelector("input#summer").value;
+    const classesQuarter = document.querySelector('input[name="number"]:checked').value;
+
+    let paragraph = document.createElement("p");
+    if (summer === "on") {
+        summer = "Yes";
+    } else {
+        summer = "No";
+    }
+    paragraph.textContent = `Summer Classes: ${summer} - Classes per Quarter: ${classesQuarter}`;
+    confirmDiv.appendChild(paragraph);
+
     let list = document.createElement("ul");
+
 
     for (let i = 0; i < prereqs.length; i++) {
         const obj = prereqs[i];
@@ -138,7 +152,6 @@ function buildConfirmationContent() {
     }
 
     // add list to DIV.confirm
-    const confirmDiv = document.querySelector('#confirm');
     confirmDiv.appendChild(list);
     
 }
