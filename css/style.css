@@ -12,26 +12,27 @@ body {
 }
 
 div.content {
+    border-radius: 30px;
     background-color: white;
     padding: 0 2em;
-    margin: 0 0;
+    margin-bottom: 20px;
     min-height: 100vh;
 }
 
 div.content h1 {
+    text-align: center;
     margin-top: 0;
     padding-top: 1em;
 }
 
-
 form {
+    background-color: rgba(245, 245, 245);
+    border-radius: 0.5rem;
     margin: 12px;
     padding-top: 12px;
 }
 
 h4#form {
-    margin-left: -12px;
-    /* text-decoration: underline; */
     border-bottom: 2px solid #69B143;
 }
 
@@ -50,7 +51,9 @@ label {
 }
 
 div#summer {
-
+    margin: 20px;
+    padding: 0.5em;
+    border: 2px solid #69B143;
 }
 
 div.form {
@@ -58,12 +61,16 @@ div.form {
 }
 
 div#radios {
-    padding: 0.5em 0;
+    margin: 20px;
+    padding: 0.5em;
+    border: 2px solid #69B143;
 }
 
 
 div#prereqs {
-    padding: 0.5em 0;
+    margin: 20px;
+    padding: 0.5em;
+    border: 2px solid #69B143;
 }
 
 
@@ -72,8 +79,8 @@ div#prereqs label {
 }
 
 input#submit {
-    margin-top: 0.5em;
-    padding: .5em 1em;
+    margin: 5px 20px 20px 20px;
+    padding: 0.5em;
     font-size: 1em;
 }
 
