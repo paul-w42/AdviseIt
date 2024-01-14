@@ -1,3 +1,5 @@
+let prereqs = [];
+
 // wait until page loads
 window.onload = async function () {
     const submitButton = document.querySelector("#submit");
@@ -32,43 +34,121 @@ function processSubmit() {
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
     // prerequisites taken?
-    const it201 = document.querySelector('input#IT201').value;
-    const sdev201 = document.querySelector('input#SDEV201').value;
-    const sdev106 = document.querySelector('input#SDEV106').value;
-    const sdev117 = document.querySelector('input#SDEV117').value;
-    const sdev219 = document.querySelector('input#SDEV219').value;
-    const cs141 = document.querySelector('input#CS141').value;
-    const sdev220 = document.querySelector('input#SDEV220').value;
-    const cs145 = document.querySelector('input#CS145').value;
+    const it201 = document.querySelector('input#IT201');
+    console.log("it201.checked: " + it201.checked); // true or false
+    if (it201.checked) {
+        const pre = {
+            name: "IT201",
+            taken: true
+        };
+        prereqs.push(pre);
+        console.log("IT201 taken");
+    }
+    const sdev201 = document.querySelector('input#SDEV201');
+    if (sdev201.checked) {
+        const pre = {
+            name: "SDEV201",
+            taken: true
+        };
+        prereqs.push(pre);
+        console.log("SDEV201 taken");
+    }
+    const sdev106 = document.querySelector('input#SDEV106');
+    if (sdev106.checked) {
+        const pre = {
+            name: "SDEV106",
+            taken: true
+        };
+        prereqs.push(pre);
+        console.log("SDEV106 taken");
+    }
+    const sdev117 = document.querySelector('input#SDEV117');
+    if (sdev117.checked) {
+        const pre = {
+            name: "SDEV117",
+            taken: true
+        };
+        prereqs.push(pre);
+    }
+    const sdev219 = document.querySelector('input#SDEV219');
+    if (sdev219.checked) {
+        const pre = {
+            name: "SDEV219",
+            taken: true
+        };
+        prereqs.push(pre);
+    }
+    const cs141 = document.querySelector('input#CS141');
+    if (cs141.checked) {
+        const pre = {
+            name: "CS141",
+            taken: true
+        };
+        prereqs.push(pre);
+    }
+    const sdev220 = document.querySelector('input#SDEV220');
+    if (sdev220.checked) {
+        const pre = {
+            name: "SDEV220",
+            taken: true
+        };
+        prereqs.push(pre);
+    }
+    const cs145 = document.querySelector('input#CS145');
+    if (cs145.checked) {
+        const pre = {
+            name: "CS145",
+            taken: true
+        };
+        prereqs.push(pre);
+    }
 
 
     console.log('summer value: ' + summer);
     console.log('classes per quarter: ' + classesQuarter);
-    console.log('it201: ' + it201);
-    if (it201) {
-        console.log('it201 true');
-    } else {
-        console.log('it201 false');
-    }
+    console.log('number of prereqs taken: ' + prereqs.length);
 
     // hide query div
     hideQuery();
 
     // display confirmation
     displayConfirmationDiv();
+
+    // build list of pre-reqs taken
     buildConfirmationContent();
 }
 
 function buildConfirmationContent() {
+/*
+    // build anchor for URL column
+    let url_anchor= document.createElement("a");
+    url_anchor.setAttribute('href', json.url);
+    url_anchor.setAttribute('target', '_blank');
+    url_anchor.textContent = json.url;
+    ...
+     document.getElementById(`d${id}6`).appendChild(url_anchor);
+*/
+    let list = document.createElement("ul");
+
+    for (let i = 0; i < prereqs.length; i++) {
+        const obj = prereqs[i];
+        const li = document.createElement("li");
+        li.textContent = obj.name;
+        list.appendChild(li);
+    }
+
+    // add list to DIV.confirm
+    const confirmDiv = document.querySelector('#confirm');
+    confirmDiv.appendChild(list);
     
 }
 
 function displayConfirmationDiv() {
-    const confirmDiv = document.querySelector('confirm');
+    const confirmDiv = document.querySelector('#confirm');
     confirmDiv.style.display = "block";
 }
 
 function hideQuery() {
-    const queryDiv = document.querySelector('query');
+    const queryDiv = document.querySelector('#query');
     queryDiv.style.display = "none";
 }
