@@ -71,7 +71,7 @@ input#submit {
     font-size: 1em;
 }
 
-div#confirm {
+div#processContent {
     display: none; /* SET TO BLOCK WHEN WORKING ON STYLE */
 }
 

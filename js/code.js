@@ -128,7 +128,8 @@ function buildConfirmationContent() {
     ...
      document.getElementById(`d${id}6`).appendChild(url_anchor);
 */
-    const confirmDiv = document.querySelector('#confirm');
+    const confirmDiv = document.querySelector('#resultConfirm');
+    
     let summer = document.querySelector("input#summer").value;
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
@@ -156,8 +157,29 @@ function buildConfirmationContent() {
     
 }
 
+/*
+ * Using the submitted prerequisites and the data inside the ./data/courses.js file, determine
+ * what the remaining prerequisites are that the student still must take prior to starting the 
+ * software BAS program.
+ */
+function calculateRemainingPrereqs() {
+    let requiredPrereqs = [];
+    // taken prereqs listed in prereqs array
+    //      array of objects w/ String 'name' and Boolean 'taken' fields
+    // required prereqs are listed inside the requiredPrereqs array
+    //      array with String 'course1' and String 'course2' fields.  The latter only present 
+    //      if either one of the two courses  would satisify that spot requirement
+
+    // cycle through required courses, and for each requirement determine if that is present
+    // inside the taken prereqs.  If not, add to new array zc
+    for (let i = 0; i < requiredPrereqs.length; i++) {
+        const obj = requiredPrereqs[i];
+        
+    }
+}
+
 function displayConfirmationDiv() {
-    const confirmDiv = document.querySelector('#confirm');
+    const confirmDiv = document.querySelector('#processContent');
     confirmDiv.style.display = "block";
 }
 
