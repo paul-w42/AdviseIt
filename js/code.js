@@ -34,77 +34,18 @@ function processSubmit() {
     const summer = document.querySelector("input#summer").value;
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
-    // prerequisites taken?
-    const it201 = document.querySelector('input#IT201');
-    // console.log("it201.checked: " + it201.checked); // true or false
-    if (it201.checked) {
-        const pre = {
-            name: "IT201",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log("IT201 taken");
-    }
-    const sdev201 = document.querySelector('input#SDEV201');
-    if (sdev201.checked) {
-        const pre = {
-            name: "SDEV201",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log("SDEV201 taken");
-    }
-    const sdev106 = document.querySelector('input#SDEV106');
-    if (sdev106.checked) {
-        const pre = {
-            name: "SDEV106",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log("SDEV106 taken");
-    }
-    const sdev117 = document.querySelector('input#SDEV117');
-    if (sdev117.checked) {
-        const pre = {
-            name: "SDEV117",
-            taken: true
-        };
-        prereqs.push(pre);
-    }
-    const sdev219 = document.querySelector('input#SDEV219');
-    if (sdev219.checked) {
-        const pre = {
-            name: "SDEV219",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log('SDEV219 taken');
-    }
-    const cs141 = document.querySelector('input#CS141');
-    if (cs141.checked) {
-        const pre = {
-            name: "CS141",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log('CS141 taken');
-    }
-    const sdev220 = document.querySelector('input#SDEV220');
-    if (sdev220.checked) {
-        const pre = {
-            name: "SDEV220",
-            taken: true
-        };
-        prereqs.push(pre);
-    }
-    const cs145 = document.querySelector('input#CS145');
-    if (cs145.checked) {
-        const pre = {
-            name: "CS145",
-            taken: true
-        };
-        prereqs.push(pre);
-        // console.log('CS141 taken');
+    const boxDiv = document.getElementById('prereqs');
+    const checkBoxes = boxDiv.querySelectorAll('input[type="checkbox"]');
+
+    for (let i = 0; i < checkBoxes.length; i++) {
+        const checkBox = checkBoxes[i];
+        if (checkBox.checked) {
+            const pre = {
+                name: checkBox.name,
+                taken: true
+            };
+            prereqs.push(pre);
+        }
     }
 
 
@@ -133,14 +74,13 @@ function buildConfirmationContent() {
     let summer = document.querySelector("input#summer").value;
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
-    let paragraph = document.createElement("p");
+    let paragraph = document.getElementById("preferences");
     if (summer === "on") {
         summer = "Yes";
     } else {
         summer = "No";
     }
     paragraph.textContent = `Summer Classes: ${summer} - Classes per Quarter: ${classesQuarter}`;
-    confirmDiv.appendChild(paragraph);
 
     let list = document.createElement("ul");
 
