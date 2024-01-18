@@ -22,6 +22,39 @@ let requiredPrereqs = {
         {
             course1: 'SDEV220',
             course2: 'CS145',
+        },
+        {
+            course1: 'MATH97'
+        },
+        {
+            course1: 'ENG101'
+        },
+        {
+            course1: 'ENG126'
+        },
+        {
+            course1: 'MATH141'
+        },
+        {
+            course1: 'MATH146'
+        },
+        {
+            course1: 'CMST210'
+        },
+        {
+            course1: 'LABSCIENCE'
+        },
+        {
+            course1: 'SDEV101'
+        },
+        {
+            course1: 'SDEV121'
+        },
+        {
+            course1: 'SDEV218'
+        },
+        {
+            course1: 'SDEV280'
         }
     ]    
 };
