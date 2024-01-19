@@ -6,29 +6,6 @@
 let requiredCourses = {
     classes: [
         {
-            course1: 'IT201',
-            course2: 'SDEV201',
-            requires: false
-        },
-        {
-            course1: 'SDEV106',
-            requires: false
-        },
-        {
-            course1: 'SDEV117',
-            requires: false
-        },
-        {
-            course1: 'SDEV219',
-            course2: 'CS141',
-            requires: 'SDEV218'
-        },
-        {
-            course1: 'SDEV220',
-            course2: 'CS145',
-            requires: 'SDEV219'
-        },
-        {
             course1: 'MATH97',
             requires: false
         },
@@ -61,7 +38,8 @@ let requiredCourses = {
             requires: false
         },
         {
-            course1: 'SDEV121',
+            course1: 'IT201',
+            course2: 'SDEV201',
             requires: false
         },
         {
@@ -69,9 +47,35 @@ let requiredCourses = {
             requires: 'MATH97'
         },
         {
+            course1: 'CS108',
+            requires: 'MATH97'
+        },
+        {
+            course1: 'SDEV106',
+            requires: false
+        },
+        {
+            course1: 'SDEV117',
+            requires: false
+        },
+        {
+            course1: 'SDEV219',
+            course2: 'CS141',
+            requires: 'SDEV218'
+        },
+        {
+            course1: 'SDEV121',
+            requires: false
+        },
+        {
+            course1: 'SDEV220',
+            course2: 'CS145',
+            requires: 'SDEV219'
+        },
+        {
             course1: 'SDEV280',
             requires: false
-        }
+        },
     ]    
 };
 

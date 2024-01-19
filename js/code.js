@@ -201,6 +201,7 @@ function buildSchedule() {
     }
 
     for (let quarter = 0; quarter < quarters; quarter++) {
+        console.log('quarter ' + quarter + ' of ' + quarters + ' quarters');
         let div = document.createElement('div');
         div.className='quarter';
 
