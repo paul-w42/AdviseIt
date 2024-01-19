@@ -1,6 +1,6 @@
-let prereqs = [];
+let classesTaken = [];
 //let unsatisifedPrereqs = new Map();
-let unsatisifedPrereqs = [];
+let unsatisfiedPrereqs = [];
 
 // wait until page loads
 window.onload = async function () {
@@ -31,7 +31,7 @@ window.onload = async function () {
  */
 function processSubmit() {
     // take summer classes?
-    const summer = document.querySelector("input#summer").value;
+    const summer = document.querySelector("input#summer").checked;
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
     const boxDiv = document.getElementById('prereqs');
@@ -44,14 +44,14 @@ function processSubmit() {
                 name: checkBox.name,
                 taken: true
             };
-            prereqs.push(pre);
+            classesTaken.push(pre);
         }
     }
 
 
     console.log('summer value: ' + summer);
     console.log('classes per quarter: ' + classesQuarter);
-    console.log('number of prereqs taken: ' + prereqs.length);
+    console.log('number of prereqs taken: ' + classesTaken.length);
 
     // hide query div
     hideQuery();
@@ -66,16 +66,19 @@ function processSubmit() {
 
     calculateRemainingPrereqs();
     buildNonSatisifedPrereqsList();
+    buildSchedule();
 }
 
 function buildConfirmationContent() {
     const confirmDiv = document.querySelector('#resultConfirm');
     
-    let summer = document.querySelector("input#summer").value;
+    
+    let summer = document.querySelector("input#summer").checked;
+    console.log(summer + " is summer");
     const classesQuarter = document.querySelector('input[name="number"]:checked').value;
 
     let paragraph = document.getElementById("preferences");
-    if (summer === "on") {
+    if (summer) {
         summer = "Yes";
     } else {
         summer = "No";
@@ -85,8 +88,8 @@ function buildConfirmationContent() {
     let list = document.createElement("ul");
 
 
-    for (let i = 0; i < prereqs.length; i++) {
-        const obj = prereqs[i];
+    for (let i = 0; i < classesTaken.length; i++) {
+        const obj = classesTaken[i];
         const li = document.createElement("li");
         li.textContent = obj.name;
         list.appendChild(li);
@@ -99,7 +102,7 @@ function buildConfirmationContent() {
 
 function buildNonSatisifedPrereqsList() {
     const resultPrereqsDiv = document.querySelector('#resultPrereqs');
-    if (unsatisifedPrereqs.length == 0) {
+    if (unsatisfiedPrereqs.length == 0) {
         const p = document.createElement('p');
         p.textContent = 'You have taken the required prerequisites';
         resultPrereqsDiv.appendChild(p);
@@ -107,16 +110,16 @@ function buildNonSatisifedPrereqsList() {
     else {
         // cycle through unsatisfiedPrereqs, and list 
         const ul = document.createElement('ul');
-        for (let i = 0; i < unsatisifedPrereqs.length; i++) {
+        for (let i = 0; i < unsatisfiedPrereqs.length; i++) {
             const li = document.createElement('li');
 
             // is a course2 present?  if so, present either course1 or course2 as options
-            if (unsatisifedPrereqs[i].course2) {
-                li.textContent = unsatisifedPrereqs[i].course1 + " or " + unsatisifedPrereqs[i].course2;
+            if (unsatisfiedPrereqs[i].course2) {
+                li.textContent = unsatisfiedPrereqs[i].course1 + " or " + unsatisfiedPrereqs[i].course2;
             }
             // no optional course2 present, present only course1 as an option
             else {
-                li.textContent = unsatisifedPrereqs[i].course1;
+                li.textContent = unsatisfiedPrereqs[i].course1;
             }
 
             ul.appendChild(li);
@@ -145,14 +148,14 @@ function calculateRemainingPrereqs() {
     // console.log('selected prereqs.length is ' + prereqs.length);
 
     // for each of the required courses ... 
-    for (let i = 0; i < requiredPrereqs.classes.length; i++) {
-        const course = requiredPrereqs.classes[i];      // course.course1 AND POSSIBLY a course.course2
+    for (let i = 0; i < requiredCourses.classes.length; i++) {
+        const course = requiredCourses.classes[i];      // course.course1 AND POSSIBLY a course.course2
         let courseTaken = false;
         // console.log('Testing for course ' + course.course1 + ', ' + course.course2);
 
         // for all of the prereqs the student says they have taken, determine which of the required courses have been taken
-        for (let a = 0; a < prereqs.length; a++) {            
-            if ((prereqs[a].name == course.course1) || (course.course2 && course.course2 == prereqs[a].name)) {
+        for (let a = 0; a < classesTaken.length; a++) {            
+            if ((classesTaken[a].name == course.course1) || (course.course2 && course.course2 == classesTaken[a].name)) {
                 courseTaken = true;
                 break;
             } 
@@ -160,7 +163,7 @@ function calculateRemainingPrereqs() {
 
         // if we have not taken the course
         if (!courseTaken) {
-            unsatisifedPrereqs.push(requiredPrereqs.classes[i]);
+            unsatisfiedPrereqs.push(requiredCourses.classes[i]);
             // console.log('          Course ' + course.course1 + ' or alternative were not taken, adding to list');
         } 
     }
@@ -176,4 +179,54 @@ function displayConfirmationDiv() {
 function hideQuery() {
     const queryDiv = document.querySelector('#query');
     queryDiv.style.display = "none";
+}
+
+function buildSchedule() {
+    // get the number of classes per quarter
+    const classesPerQuarter = document.querySelector('input[name="number"]:checked').value;
+
+    // get the summer classes preference
+    let summer = document.querySelector("input#summer").checked;
+    const scheduleDiv = document.querySelector('#schedule');
+
+    let quarterNames = ['Fall', 'Winter', 'Spring', 'Summer'];
+
+    let ul;
+
+    let quarters;
+
+    console.log(summer);
+
+    if (summer) {
+        quarters = 4;
+    } else {
+        quarters = 3;
+    }
+
+    for (let quarter = 0; quarter < quarters; quarter++) {
+        let div = document.createElement('div');
+        div.className='quarter';
+        const h4 = document.createElement('h4');
+        h4.textContent = quarterNames[quarter] + ' Quarter';
+        div.appendChild(h4);
+        ul = document.createElement('ul');
+        for (let i = 0; i < classesPerQuarter; i++) {
+            // get the next class from the list of unsatisfied prereqs
+
+            //TODO: check for required classes
+            if (classesTaken.includes(unsatisfiedPrereqs[i].requiredCourses)) {
+            const course = unsatisfiedPrereqs[i];
+            console.log(course);
+    
+            // create a new paragraph to hold the class name
+            const li = document.createElement('li');
+            li.textContent = course.course1;
+    
+            // add the paragraph to the div
+            ul.appendChild(li);
+            unsatisfiedPrereqs.splice(i, 1);
+        }
+        div.appendChild(ul);
+        scheduleDiv.appendChild(div);
+    }
 }

@@ -101,3 +101,11 @@ div#processContent {
     }
 }
 
+div#schedule {
+    display: flex;
+}
+
+div.quarter{
+    margin-right: 4em;
+}
+

@@ -3,58 +3,74 @@
 * Array cells where two classes are listed, the requirement is to take one 
 * or the other, not both
 */
-let requiredPrereqs = {
+let requiredCourses = {
     classes: [
         {
             course1: 'IT201',
             course2: 'SDEV201',
+            requires: false
         },
         {
             course1: 'SDEV106',
+            requires: false
         },
         {
             course1: 'SDEV117',
+            requires: false
         },
         {
             course1: 'SDEV219',
             course2: 'CS141',
+            requires: 'SDEV218'
         },
         {
             course1: 'SDEV220',
             course2: 'CS145',
+            requires: 'SDEV219'
         },
         {
-            course1: 'MATH97'
+            course1: 'MATH97',
+            requires: false
         },
         {
-            course1: 'ENG101'
+            course1: 'ENG101',
+            requires: false
         },
         {
-            course1: 'ENG126'
+            course1: 'ENG126',
+            requires: false
         },
         {
-            course1: 'MATH141'
+            course1: 'MATH141',
+            requires: false
         },
         {
-            course1: 'MATH146'
+            course1: 'MATH146',
+            requires: false
         },
         {
-            course1: 'CMST210'
+            course1: 'CMST210',
+            requires: false
         },
         {
-            course1: 'LABSCIENCE'
+            course1: 'LABSCIENCE',
+            requires: false
         },
         {
-            course1: 'SDEV101'
+            course1: 'SDEV101',
+            requires: false
         },
         {
-            course1: 'SDEV121'
+            course1: 'SDEV121',
+            requires: false
         },
         {
-            course1: 'SDEV218'
+            course1: 'SDEV218',
+            requires: 'MATH97'
         },
         {
-            course1: 'SDEV280'
+            course1: 'SDEV280',
+            requires: false
         }
     ]    
 };
