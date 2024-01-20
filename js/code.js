@@ -1,5 +1,4 @@
 let classesTaken = [];
-//let unsatisifedPrereqs = new Map();
 let classesNotTaken = [];
 
 // wait until page loads
@@ -9,21 +8,6 @@ window.onload = async function () {
 
     console.log("onLoad() complete");
 };
-
-/*
- * This intializes a Map containing all of the required prerequisites.  The class names will be the
- * Keys inside the map, and a boolean value will indicate whether that prerequisite has been 
- * satisfied or not.
- */
-// function processPrereqsMap() {
-//     for (let i = 0; i < requiredPrereqs.classes.length; i++) {
-//         const course = requiredPrereqs.classes[i];
-//         unsatisifedPrereqs.set(course.course1, false);
-//         if (course.course2) {
-//             unsatisifedPrereqs.set(course.course2);
-//         }
-//     }
-// }
 
 
 /*
@@ -114,22 +98,9 @@ function buildNonSatisifedPrereqsList() {
             // div#prereqs
             const div = document.createElement('div');
             div.className = 'remain';
-
-            // const li = document.createElement('li');
-
-            // is a course2 present?  if so, present either course1 or course2 as options
-            // if (unsatisfiedPrereqs[i].course2) {
-            //     li.textContent = unsatisfiedPrereqs[i].course1 + " or " + unsatisfiedPrereqs[i].course2;
-            // }
-            // // no optional course2 present, present only course1 as an option
-            // else {
-            //     li.textContent = unsatisfiedPrereqs[i].course1;
-            // }
             
-            // li.textContent = classesNotTaken[i].course1;
             div.textContent = classesNotTaken[i].course1;
             prereqsDiv.appendChild(div);
-            // ul.appendChild(li);
         }
         // resultPrereqsDiv.appendChild(ul);
     }
