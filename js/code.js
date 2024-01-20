@@ -113,7 +113,7 @@ function buildNonSatisifedPrereqsList() {
         for (let i = 0; i < classesNotTaken.length; i++) {
             // div#prereqs
             const div = document.createElement('div');
-            div.className = 'quarter';
+            div.className = 'remain';
 
             // const li = document.createElement('li');
 

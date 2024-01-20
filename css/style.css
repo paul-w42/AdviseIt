@@ -106,7 +106,11 @@ div#schedule, div#takenPrereqs {
     flex-wrap: wrap;
 }
 
-div.quarter{
+div.remain {
     width: 7em;
     padding: 3px 0;
+}
+
+div.quarter {
+    width: 10em;
 }
