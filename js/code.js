@@ -200,8 +200,13 @@ function buildSchedule() {
         quarters = 3;
     }
 
+    console.log(unsatisfiedPrereqs);
+
     for (let quarter = 0; quarter < quarters; quarter++) {
+        let currentClasses = [];
+
         console.log('quarter ' + quarter + ' of ' + quarters + ' quarters');
+        console.log(unsatisfiedPrereqs.length + " is remaining unsatisfied prereqs");
         let div = document.createElement('div');
         div.className='quarter';
 
@@ -221,6 +226,8 @@ function buildSchedule() {
             // get the next class from the list of unsatisfied prereqs
 
             //TODO: check for required classes
+            console.log(currentClassNumber);
+            console.log(unsatisfiedPrereqs[currentClassNumber]);
             if (unsatisfiedPrereqs[currentClassNumber].requires != false) {
                 // check if the prereq is in the list of classes taken
                 let prereqTaken = false;
@@ -231,7 +238,7 @@ function buildSchedule() {
                     }
                 }
                 if (!prereqTaken) {
-                    // if the prereq is not taken, remove it from the list of unsatisfied prereqs
+                    // if the prereq is not taken, increment our loop parameters and continue
                     console.log("prereq not taken, continuing...");
                     currentClassNumber++;
                     classesPerQuarter++;
@@ -240,6 +247,9 @@ function buildSchedule() {
             }
             console.log("class did not require a prereq, or prereq was taken");
             const course = unsatisfiedPrereqs[currentClassNumber];
+
+            // add the class to the list of classes taken for this quarter
+            currentClasses.push(course);
             console.log(course);
     
             // create a new paragraph to hold the class name
@@ -251,6 +261,7 @@ function buildSchedule() {
             unsatisfiedPrereqs.splice(currentClassNumber, 1);
             currentClassNumber++;
         }
+        classesTaken.push(currentClasses);
         div.appendChild(ul);
         scheduleDiv.appendChild(div);
     }
