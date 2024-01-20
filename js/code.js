@@ -1,6 +1,6 @@
 let classesTaken = [];
 //let unsatisifedPrereqs = new Map();
-let unsatisfiedPrereqs = [];
+let classesNotTaken = [];
 
 // wait until page loads
 window.onload = async function () {
@@ -41,7 +41,7 @@ function processSubmit() {
         const checkBox = checkBoxes[i];
         if (checkBox.checked) {
             const pre = {
-                name: checkBox.name,
+                course1: checkBox.name,
                 taken: true
             };
             classesTaken.push(pre);
@@ -91,7 +91,7 @@ function buildConfirmationContent() {
     for (let i = 0; i < classesTaken.length; i++) {
         const obj = classesTaken[i];
         const li = document.createElement("li");
-        li.textContent = obj.name;
+        li.textContent = obj.course1;
         list.appendChild(li);
     }
 
@@ -101,30 +101,37 @@ function buildConfirmationContent() {
 }
 
 function buildNonSatisifedPrereqsList() {
-    const resultPrereqsDiv = document.querySelector('#resultPrereqs');
-    if (unsatisfiedPrereqs.length == 0) {
+    const prereqsDiv = document.querySelector('#takenPrereqs');
+    if (classesNotTaken.length == 0) {
         const p = document.createElement('p');
         p.textContent = 'You have taken the required prerequisites';
-        resultPrereqsDiv.appendChild(p);
+        prereqsDiv.appendChild(p);
     } 
     else {
         // cycle through unsatisfiedPrereqs, and list 
-        const ul = document.createElement('ul');
-        for (let i = 0; i < unsatisfiedPrereqs.length; i++) {
-            const li = document.createElement('li');
+        // const ul = document.createElement('ul');
+        for (let i = 0; i < classesNotTaken.length; i++) {
+            // div#prereqs
+            const div = document.createElement('div');
+            div.className = 'quarter';
+
+            // const li = document.createElement('li');
 
             // is a course2 present?  if so, present either course1 or course2 as options
-            if (unsatisfiedPrereqs[i].course2) {
-                li.textContent = unsatisfiedPrereqs[i].course1 + " or " + unsatisfiedPrereqs[i].course2;
-            }
-            // no optional course2 present, present only course1 as an option
-            else {
-                li.textContent = unsatisfiedPrereqs[i].course1;
-            }
-
-            ul.appendChild(li);
+            // if (unsatisfiedPrereqs[i].course2) {
+            //     li.textContent = unsatisfiedPrereqs[i].course1 + " or " + unsatisfiedPrereqs[i].course2;
+            // }
+            // // no optional course2 present, present only course1 as an option
+            // else {
+            //     li.textContent = unsatisfiedPrereqs[i].course1;
+            // }
+            
+            // li.textContent = classesNotTaken[i].course1;
+            div.textContent = classesNotTaken[i].course1;
+            prereqsDiv.appendChild(div);
+            // ul.appendChild(li);
         }
-        resultPrereqsDiv.appendChild(ul);
+        // resultPrereqsDiv.appendChild(ul);
     }
 }
 
@@ -155,7 +162,7 @@ function calculateRemainingPrereqs() {
 
         // for all of the prereqs the student says they have taken, determine which of the required courses have been taken
         for (let a = 0; a < classesTaken.length; a++) {            
-            if ((classesTaken[a].name == course.course1) || (course.course2 && course.course2 == classesTaken[a].name)) {
+            if (classesTaken[a].course1 == course.course1) {
                 courseTaken = true;
                 break;
             } 
@@ -163,7 +170,7 @@ function calculateRemainingPrereqs() {
 
         // if we have not taken the course
         if (!courseTaken) {
-            unsatisfiedPrereqs.push(requiredCourses.classes[i]);
+            classesNotTaken.push(requiredCourses.classes[i]);
             // console.log('          Course ' + course.course1 + ' or alternative were not taken, adding to list');
         } 
     }
@@ -200,13 +207,18 @@ function buildSchedule() {
         quarters = 3;
     }
 
-    console.log(unsatisfiedPrereqs);
+    console.log('classesTaken: ');
+    for (let i = 0; i < classesTaken.length; i++) {
+        console.log('name: ' + classesTaken[i].course1);
+    }
+
+    console.log(classesNotTaken);
 
     for (let quarter = 0; quarter < quarters; quarter++) {
         let currentClasses = [];
 
         console.log('quarter ' + quarter + ' of ' + quarters + ' quarters');
-        console.log(unsatisfiedPrereqs.length + " is remaining unsatisfied prereqs");
+        console.log(classesNotTaken.length + " is remaining unsatisfied prereqs");
         let div = document.createElement('div');
         div.className='quarter';
 
@@ -227,26 +239,36 @@ function buildSchedule() {
 
             //TODO: check for required classes
             console.log(currentClassNumber);
-            console.log(unsatisfiedPrereqs[currentClassNumber]);
-            if (unsatisfiedPrereqs[currentClassNumber].requires != false) {
+            console.log(classesNotTaken[currentClassNumber]);
+
+            // if we are outside of this array - not enough remaining classes to satisfy this quarter
+            console.log('Classes Not Taken: ');
+            for (let i = 0; i < classesNotTaken.length; i++) {
+                console.log('name: ' + classesNotTaken[i].course1);
+            }
+            if (currentClassNumber >= (classesNotTaken.length)) {
+                break;
+            }
+
+            if (classesNotTaken[currentClassNumber].requires != false) {
                 // check if the prereq is in the list of classes taken
                 let prereqTaken = false;
                 for (let j = 0; j < classesTaken.length; j++) {
-                    if (unsatisfiedPrereqs[currentClassNumber].requires == classesTaken[j].name) {
+                    if (classesNotTaken[currentClassNumber].requires === classesTaken[j].course1) {
                         prereqTaken = true;
                         break;
                     }
                 }
                 if (!prereqTaken) {
                     // if the prereq is not taken, increment our loop parameters and continue
-                    console.log("prereq not taken, continuing...");
+                    console.log("prereq not taken for " + classesNotTaken[currentClassNumber].course1 + ", continuing...");
                     currentClassNumber++;
                     classesPerQuarter++;
                     continue;
                 }
             }
             console.log("class did not require a prereq, or prereq was taken");
-            const course = unsatisfiedPrereqs[currentClassNumber];
+            const course = classesNotTaken[currentClassNumber];
 
             // add the class to the list of classes taken for this quarter
             currentClasses.push(course);
@@ -258,10 +280,18 @@ function buildSchedule() {
     
             // add the paragraph to the div
             ul.appendChild(li);
-            unsatisfiedPrereqs.splice(currentClassNumber, 1);
-            currentClassNumber++;
+            classesNotTaken.splice(currentClassNumber, 1);
+
+            // decrementing as the splice statement above moves the next class into the current
+            // index, hence we must maintain the current index value.  instead of indexing the index
+            // value, we decrement classesPerQuarter
+            --classesPerQuarter;
         }
-        classesTaken.push(currentClasses);
+        classesTaken = classesTaken.concat(currentClasses);
+        console.log('classesTaken: ');
+        for (let i = 0; i < classesTaken.length; i++) {
+            console.log('name: ' + classesTaken[i].course1);
+        }
         div.appendChild(ul);
         scheduleDiv.appendChild(div);
     }

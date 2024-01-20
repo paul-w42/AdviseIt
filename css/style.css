@@ -101,11 +101,12 @@ div#processContent {
     }
 }
 
-div#schedule {
+div#schedule, div#takenPrereqs {
     display: flex;
+    flex-wrap: wrap;
 }
 
 div.quarter{
-    margin-right: 4em;
+    width: 7em;
+    padding: 3px 0;
 }
-
