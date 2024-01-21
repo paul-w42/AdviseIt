@@ -9,7 +9,7 @@
 
 ### Challenges
 
-- BUGS!  Had some challenges regarding iterating through a steadily shrinking list of classes
+- Bugs!  Had some challenges regarding iterating through a steadily shrinking list of classes
 - Managing mulitple arrays testing against prerequisites to account for scheduling conflicts
 
 

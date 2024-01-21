@@ -170,26 +170,16 @@ function buildSchedule() {
 
     let quarters;
 
-    console.log(summer);
-
     if (summer) {
         quarters = 4;
     } else {
         quarters = 3;
     }
 
-    console.log('classesTaken: ');
-    for (let i = 0; i < classesTaken.length; i++) {
-        console.log('name: ' + classesTaken[i].course1);
-    }
-
-    console.log(classesNotTaken);
-
+    // Cycle through each quarter
     for (let quarter = 0; quarter < quarters; quarter++) {
         let currentClasses = [];
 
-        console.log('quarter ' + quarter + ' of ' + quarters + ' quarters');
-        console.log(classesNotTaken.length + " is remaining unsatisfied prereqs");
         let div = document.createElement('div');
         div.className='quarter';
 
@@ -203,26 +193,17 @@ function buildSchedule() {
 
         // get the number of classes per quarter
         let classesPerQuarter = document.querySelector('input[name="number"]:checked').value;
+
         // loop while we have not reached the max number of classes per quarter
         while (currentClassNumber < classesPerQuarter) {
 
-            // get the next class from the list of unsatisfied prereqs
-
-            //TODO: check for required classes
-            console.log(currentClassNumber);
-            console.log(classesNotTaken[currentClassNumber]);
-
-            // if we are outside of this array - not enough remaining classes to satisfy this quarter
-            console.log('Classes Not Taken: ');
-            for (let i = 0; i < classesNotTaken.length; i++) {
-                console.log('name: ' + classesNotTaken[i].course1);
-            }
             if (currentClassNumber >= (classesNotTaken.length)) {
                 break;
             }
 
+            // if there is a required class ... 
             if (classesNotTaken[currentClassNumber].requires != false) {
-                // check if the prereq is in the list of classes taken
+                // determine if we have taken that required class
                 let prereqTaken = false;
                 for (let j = 0; j < classesTaken.length; j++) {
                     if (classesNotTaken[currentClassNumber].requires === classesTaken[j].course1) {
@@ -232,18 +213,15 @@ function buildSchedule() {
                 }
                 if (!prereqTaken) {
                     // if the prereq is not taken, increment our loop parameters and continue
-                    console.log("prereq not taken for " + classesNotTaken[currentClassNumber].course1 + ", continuing...");
                     currentClassNumber++;
                     classesPerQuarter++;
                     continue;
                 }
             }
-            console.log("class did not require a prereq, or prereq was taken");
             const course = classesNotTaken[currentClassNumber];
 
             // add the class to the list of classes taken for this quarter
             currentClasses.push(course);
-            console.log(course);
     
             // create a new paragraph to hold the class name
             const li = document.createElement('li');
@@ -259,10 +237,7 @@ function buildSchedule() {
             --classesPerQuarter;
         }
         classesTaken = classesTaken.concat(currentClasses);
-        console.log('classesTaken: ');
-        for (let i = 0; i < classesTaken.length; i++) {
-            console.log('name: ' + classesTaken[i].course1);
-        }
+
         div.appendChild(ul);
         scheduleDiv.appendChild(div);
     }
